@@ -1,24 +1,29 @@
 import * as dotenv from "dotenv";
-dotenv.config({});
 import * as express from "express";
-import * as path from "path";
 import * as cors from "cors";
-const app = express();
+import * as expressWs from "express-ws";
+import {IWs} from "./Interfaces/IWs";
+
+dotenv.config({});
+const app = expressWs(express()).app;
+const aWss = expressWs(express()).getWss();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, res: express.Response) => {
-  res.json({ idiot: "idiot" });
-});
+app.ws("/", (ws, req) => {
+    ws.on("message", function (msg: IWs) {
+
+    })
+})
 
 function main() {
-  try {
-    app.listen(process.env.SERVER_PORT, () =>
-      console.log(`Server started on port ${process.env.SERVER_PORT}`)
-    );
-  } catch (e) {
-    console.log(e.message);
-  }
+    try {
+        app.listen(process.env.SERVER_PORT, () =>
+            console.log(`Server started on port ${process.env.SERVER_PORT}`)
+        );
+    } catch (e) {
+        console.log(e.message);
+    }
 }
 
 main();
