@@ -3,7 +3,6 @@ import * as express from "express";
 import * as cors from "cors";
 import * as expressWs from "express-ws";
 import {IWs} from "./Interfaces/IWs";
-
 dotenv.config({});
 const app = expressWs(express()).app;
 const aWss = expressWs(express()).getWss();
